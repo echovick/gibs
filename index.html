@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI-Powered File Upload</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(135deg, #1e1e2f, #3a3a5d);
@@ -14,58 +16,110 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            margin: 0;
         }
         .container {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            max-width: 450px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .upload-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .upload-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .form-label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+        }
+        .form-control {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            padding: 10px;
+            transition: background 0.3s ease;
+        }
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: none;
+            color: white;
         }
         .btn-custom {
             background: linear-gradient(90deg, #ff6b6b, #ff9a9e);
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 12px 20px;
             border-radius: 8px;
-            transition: 0.3s;
+            font-size: 16px;
+            font-weight: 500;
+            transition: transform 0.3s ease, background 0.3s ease;
+            width: 100%;
         }
         .btn-custom:hover {
             background: linear-gradient(90deg, #ff4757, #ff758c);
+            transform: translateY(-2px);
         }
-        .custom-file-label {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            margin-top: 20px;
         }
         .progress-bar {
             background: linear-gradient(90deg, #42e695, #3bb2b8);
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container text-center">
-        <h2 class="mb-4"><i class="fas fa-cloud-upload-alt"></i> AI File Processor</h2>
-        <form action="generate.php" method="post" enctype="multipart/form-data" id="uploadForm">
-            <div class="mb-3">
+        <h2><i class="fas fa-cloud-upload-alt"></i> RENEWAL NOTICE FILES</h2>
+        <form action="process.php" method="post" enctype="multipart/form-data" id="uploadForm">
+            <!-- Word File Upload Card -->
+            <div class="upload-card">
                 <label for="wordFile" class="form-label">Upload Word Template:</label>
                 <input type="file" name="wordFile" id="wordFile" class="form-control" required>
             </div>
-            <div class="mb-3">
+            <!-- Excel File Upload Card -->
+            <div class="upload-card">
                 <label for="excelFile" class="form-label">Upload Excel File:</label>
                 <input type="file" name="excelFile" id="excelFile" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-custom w-100">Process Files <i class="fas fa-arrow-right"></i></button>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-custom">
+                Process Files <i class="fas fa-arrow-right"></i>
+            </button>
         </form>
+        <!-- Progress Bar -->
         <div id="progress" class="mt-3" style="display: none;">
             <div class="progress">
                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
             </div>
         </div>
     </div>
-    
+
+    <!-- jQuery and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#uploadForm').on('submit', function(e) {
