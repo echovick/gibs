@@ -21,10 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             break;
         }
 
-        if ($index == 0) {
-            continue;
-        }
-
         $cellIterator = $row->getCellIterator();
         $cellIterator->setIterateOnlyExistingCells(false);
         $rowData = [];
