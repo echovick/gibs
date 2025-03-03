@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $rowCount = 0;
     foreach ($sheet->getRowIterator() as $index => $row) {
+        // NOTE! This condition was added for testing purposes and should be removed in production environment
         if ($rowCount >= 5) {
             break;
         }
